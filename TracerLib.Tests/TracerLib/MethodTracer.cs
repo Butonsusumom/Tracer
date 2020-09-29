@@ -5,6 +5,14 @@ namespace TracerLib
 {
     class MethodTracer
     {
+        public MethodTracer()
+        {
+            Stopwatch = new Stopwatch();
+            ChildMethods = new List<MethodInfo>();
+            StackTrace stackTrace = new StackTrace();
+            Name = stackTrace.GetFrame(3).GetMethod().Name;
+        }
+
         public string Name;
 
         private readonly Stopwatch Stopwatch;
@@ -24,13 +32,6 @@ namespace TracerLib
         public double GetExecutionTime()
         {
             return Stopwatch.ElapsedMilliseconds;
-        }
-        public MethodTracer()
-        {
-            Stopwatch = new Stopwatch();
-            ChildMethods = new List<MethodInfo>();
-            StackTrace stackTrace = new StackTrace();
-            Name = stackTrace.GetFrame(3).GetMethod().Name;
         }
 
         public void StartTrace()

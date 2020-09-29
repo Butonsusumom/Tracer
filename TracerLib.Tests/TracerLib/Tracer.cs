@@ -12,8 +12,11 @@ namespace TracerLib
         }
 
         private readonly List<ThreadTracer> ThreadTracers;
+
         private readonly List<ThreadInfo> ThreadsInfo;
+
         static object Locker = new object();
+
         public TraceResult GetTraceResult()
         {
             return new TraceResult(ThreadsInfo);

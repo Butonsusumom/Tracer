@@ -9,6 +9,7 @@ namespace TracerLib
             ThreadsInfo = new List<ThreadInfo>();
             ThreadsInfo = threadsInfo;
         }
+
         public List<ThreadInfo> ThreadsInfo { get; private set; }
     }
 }

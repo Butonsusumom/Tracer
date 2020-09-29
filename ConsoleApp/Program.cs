@@ -25,13 +25,18 @@ namespace ConsoleApp
             public void MyMethod()
             {
                 _tracer.StartTrace();
+                Thread.Sleep(10);
                 _bar.InnerMethod();
+                Thread.Sleep(20);
+                _bar.InnerMethod();
+                Thread.Sleep(30);
                 _tracer.StopTrace();
             }
         }
 
         public class Bar
         {
+            public int v = 0;
             private ITracer _tracer;
 
             internal Bar(ITracer tracer)
@@ -42,6 +47,14 @@ namespace ConsoleApp
             public void InnerMethod()
             {
                 _tracer.StartTrace();
+                Thread.Sleep(10);
+                while (v <= 2)
+                {
+                    v++;
+                    InnerMethod();
+                    
+                }
+                Thread.Sleep(20);
                 _tracer.StopTrace();
             }
         }
@@ -64,6 +77,10 @@ namespace ConsoleApp
             foo.MyMethod();
             thread.Start(tracer);
             thread.Join();
+           // foo.MyMethod();
+            //thread = new Thread(new ParameterizedThreadStart(program.Method));
+            //thread.Start(tracer);
+            //thread.Join();
 
             XmlTracerSerializer xmlTracerSerializer = new XmlTracerSerializer();
             JsonTracerSerializer jsonTracerSerializer = new JsonTracerSerializer();
