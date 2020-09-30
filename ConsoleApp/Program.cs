@@ -63,7 +63,7 @@ namespace ConsoleApp
         {
             Tracer tracer = (Tracer)o;
             tracer.StartTrace();
-            //Thread.Sleep(100);
+            Thread.Sleep(100);
             tracer.StopTrace();
         }
 
@@ -74,11 +74,18 @@ namespace ConsoleApp
 
             Tracer tracer = new Tracer();
             Foo foo = new Foo(tracer);
+            
+            Tracer tracer1 = new Tracer();
             foo.MyMethod();
             thread.Start(tracer);
+            foo.MyMethod();
             thread.Join();
 
-
+            Thread thread1 = new Thread(new ParameterizedThreadStart(program.Method));
+            foo.MyMethod();
+            thread1.Start(tracer);
+            thread1.Join();
+            
             XmlTracerSerializer xmlTracerSerializer = new XmlTracerSerializer();
             JsonTracerSerializer jsonTracerSerializer = new JsonTracerSerializer();
             TraceResult traceResult = tracer.GetTraceResult();

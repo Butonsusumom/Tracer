@@ -24,7 +24,7 @@ namespace TracerLib
         {
             if (CurrentMethodTracer != null)
             {
-                CurrentMethodTracer.StopTrace();
+                //CurrentMethodTracer.StopTrace();
                 MethodTracers.Push(CurrentMethodTracer);
             }
             CurrentMethodTracer = new MethodTracer();
@@ -45,7 +45,7 @@ namespace TracerLib
                 // turn again to previous method
                 CurrentMethodTracer = MethodTracers.Pop();
                 CurrentMethodTracer.AddChildMethod(methodInfo);
-                CurrentMethodTracer.StartTrace();
+               // CurrentMethodTracer.StartTrace();
             }
             else
             {
