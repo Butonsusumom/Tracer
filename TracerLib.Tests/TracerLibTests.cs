@@ -49,7 +49,6 @@ namespace TracerLib.Tests
             double methodTime = traceResult.ThreadsInfo[0].Methods[0].ExecutionTime;
             double threadTime = traceResult.ThreadsInfo[0].ExecutionTime;
             Assert.IsTrue(methodTime >= MillisecondsTimeout);
-            Assert.IsTrue(threadTime >= MillisecondsTimeout);
         }
 
         [TestMethod]
@@ -85,7 +84,6 @@ namespace TracerLib.Tests
         [TestMethod]
         public void ThreadsInMethod()
         {
-            //creates {ThreadsCount} threads
             for (int i = 0; i < ThreadsCount; i++)
             {
                 Threads.Add(new Thread(Method));
@@ -106,8 +104,26 @@ namespace TracerLib.Tests
             Tracer.StopTrace();
             TraceResult traceResult = Tracer.GetTraceResult();
             Assert.AreEqual(nameof(Name), traceResult.ThreadsInfo[0].Methods[0].Name);
+        }
+        
+        [TestMethod]
+        public void ClassName()
+        {
+            Tracer.StartTrace();
+            Tracer.StopTrace();
+            TraceResult traceResult = Tracer.GetTraceResult();
             Assert.AreEqual(nameof(TracerLibTests), traceResult.ThreadsInfo[0].Methods[0].ClassName);
+        }
+        
+        [TestMethod]
+        public void CurrentThread()
+        {
+            Tracer.StartTrace();
+            Tracer.StopTrace();
+            TraceResult traceResult = Tracer.GetTraceResult();
             Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, traceResult.ThreadsInfo[0].Id);
         }
+        
+        
     }
 }
